@@ -24,6 +24,9 @@
                 {% else %}
                     <a href="{{ url_for('auth.login') }}">Login</a>
                     <a href="{{ url_for('auth.register') }}">Cadastrar</a>
+                    {% if not index %}
+                    <a href="{{ url_for('main.index') }}">Voltar</a>
+                     {% endif %}
                 {% endif %}
             </div>
         </div>

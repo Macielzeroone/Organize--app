@@ -1,53 +1,122 @@
 {% extends "base.html" %}
 
-{% block title %}Início - Sistema Template{% endblock %}
+{% block title %}Início - Organize+{% endblock %}
 
 {% block content %}
-<div class="container">
+<div class="container fade-in">
+
+    <!-- HERO -->
     <div class="hero-section">
-        <h1 class="hero-title">Bem-vindo,!</h1>
-        <p class="hero-subtitle">Você está autenticado no sistema</p>
+        <h1 class="hero-title">Bem-vindo ao Organize+</h1>
+        <p class="hero-subtitle">Seu controle financeiro inteligente começa aqui.</p>
     </div>
 
-    <div class="cards-grid">
+    <!-- DESCRIÇÃO PROFISSIONAL -->
+    <div class="info-section" style="margin-top: 2rem;">
+        <h2>Sobre o Organize+</h2>
+
+        <p style="font-size: 1.1rem; line-height: 1.7; margin-bottom: 1rem;">
+            <strong>Organize+</strong> é o aplicativo de controle financeiro criado para quem quer transformar a forma como cuida do dinheiro. 
+            Moderno, inteligente e extremamente fácil de usar, ele combina a força das melhores soluções corporativas com a agilidade 
+            de uma startup — tudo dentro de uma experiência fluida e intuitiva.
+        </p>
+
+        <p style="font-size: 1.1rem; line-height: 1.7; margin-bottom: 1rem;">
+            Com o Organize+, você acompanha gastos, controla entradas, cria metas, visualiza relatórios completos e entende exatamente 
+            para onde seu dinheiro está indo. É como ter um <strong>consultor financeiro digital</strong> no seu bolso — sempre disponível, 
+            sempre claro e sempre eficiente.
+        </p>
+
+        <h3 style="margin: 1.5rem 0 0.5rem; color: var(--primary-color); font-weight: 700;">🎙️ Você fala, ele registra.</h3>
+
+        <p style="font-size: 1.1rem; line-height: 1.7; margin-bottom: 1rem;">
+            Diga o que comprou e o Organize+ adiciona automaticamente no app. Rápido, prático e perfeito para quem quer controle total 
+            sem perder tempo.
+        </p>
+
+        <ul style="margin-left: 1rem; font-size: 1.05rem; line-height: 1.7;">
+            <li>✔ Gestão financeira simplificada</li>
+            <li>✔ Lançamento por voz automático</li>
+            <li>✔ Design moderno e impactante</li>
+            <li>✔ Tecnologia inteligente para decisões melhores</li>
+            <li>✔ Relatórios e gráficos que falam a sua língua</li>
+            <li>✔ Tudo seguro, organizado e acessível em segundos</li>
+        </ul>
+
+        <p style="font-size: 1.2rem; font-weight: 600; margin-top: 1.5rem;">
+            🔥 O Organize+ não é apenas um app:
+        </p>
+
+        <p style="font-size: 1.1rem; line-height: 1.7;">
+            💰 É o passo que separa quem tenta de quem conquista. <br>
+            🚀 É a ferramenta que coloca você no controle — de verdade.
+        </p>
+
+        <p style="font-size: 1.25rem; font-weight: 700; margin-top: 1.2rem; color: var(--primary-dark);">
+            Organize+ — seu dinheiro, sua liberdade.
+        </p>
+    </div>
+
+    <!-- CARDS -->
+    <div class="cards-grid" style="margin-top: 3rem;">
         <div class="card">
             <div class="card-icon">📊</div>
             <h3 class="card-title">Dashboard</h3>
-            <p class="card-text">Visualize suas estatísticas e relatórios</p>
+            <p class="card-text">Acompanhe estatísticas e relatórios completos.</p>
             <a href="{{ url_for('main.dashboard') }}" class="btn btn-secondary">Acessar</a>
         </div>
 
         <div class="card">
             <div class="card-icon">👤</div>
             <h3 class="card-title">Perfil</h3>
-            <p class="card-text">Gerencie suas informações pessoais</p>
+            <p class="card-text">Gerencie suas informações e preferências.</p>
             <a href="#" class="btn btn-secondary">Em breve</a>
         </div>
 
         <div class="card">
             <div class="card-icon">⚙️</div>
             <h3 class="card-title">Configurações</h3>
-            <p class="card-text">Ajuste as preferências do sistema</p>
+            <p class="card-text">Personalize o comportamento do sistema.</p>
             <a href="#" class="btn btn-secondary">Em breve</a>
         </div>
     </div>
 
-    <div class="info-section">
+    <!-- INFO DA CONTA -->
+    <div class="info-section" style="margin-top: 3rem;">
         <h2>Informações da Conta</h2>
+
         <div class="info-grid">
+
             <div class="info-item">
-                <strong>Usuário:</strong> 
+                <strong>Usuário:</strong>
+                {{ current_user.username if current_user.is_authenticated else "—" }}
             </div>
+
             <div class="info-item">
                 <strong>Email:</strong>
+                {{ current_user.email if current_user.is_authenticated else "—" }}
             </div>
+
             <div class="info-item">
                 <strong>Conta criada em:</strong>
-            <div class="info-item">
-                <strong>Status:</strong> 
-                <span class="badge badge-success"></span>
+                {% if current_user.is_authenticated %}
+                    {{ current_user.created_at.strftime('%d/%m/%Y') }}
+                {% else %}
+                    —
+                {% endif %}
             </div>
+
+            <div class="info-item">
+                <strong>Status:</strong>
+                {% if current_user.is_authenticated %}
+                    <span class="badge badge-success">Ativo</span>
+                {% else %}
+                    <span class="badge badge-danger">Offline</span>
+                {% endif %}
+            </div>
+
         </div>
     </div>
+
 </div>
 {% endblock %}
