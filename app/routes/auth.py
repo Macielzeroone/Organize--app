@@ -52,7 +52,7 @@ def login():
                 # Redirecionar para a página que o usuário tentou acessar antes do login
                 # Se não houver página anterior, vai para a página inicial
                 next_page = request.args.get('next')
-                return redirect(next_page or url_for('main.index'))
+                return redirect(next_page or url_for('main.dashboard'))
             else:
                 flash('Sua conta está desativada.', 'danger')
         else:
